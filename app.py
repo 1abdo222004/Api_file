@@ -1,32 +1,25 @@
+from flask import Flask,jsonify,request
 import json
-import random
-import requests
-from flask import Flask,request,jsonify
 app=Flask(__name__)
-def mm(nam):
-	ayt = random.randint(1, nam)
-	return ayt
-@app.route('/')
-def abdo():
-	number = random.randint(1, 114)
-	url =f'https://unpkg.com/quran-json@1.0.1/json/surahs/{number}.pretty.json'
-	res=requests.get(url).json()
-	ayt=res['total_verses']
-	ay=mm(ayt)-1
-	ay_1=ay+1
-	try:
-		try:
-			
-			aya_oll=res['verses'][ay]['text']
-			aya=res['verses'][ay_1]['text']
-			data={'data':{'1':aya_oll,'2':aya}}
-			return jsonify(data)
-		except:
-			data={'data':'error'}
-			return jsonify(data)
-	except:pass
-
-if __name__ =='__main__':
-	app.run(host='0.0.0.0',port=8080)
-
-
+with open('data.json', 'r') as file:
+	data = json.load(file)
+allowed_ids = data['allowed_ids']
+@app.route('/up')
+def m():
+	id=request.args.get('id')
+	if str(id) in allowed_ids:
+		return jsonify('Ok 400')
+	else:
+	  allowed_ids.append(id)
+	  data['allowed_ids'] = allowed_ids
+	  with open('data.json', 'w') as file:
+	  	json.dump(data, file)
+	  	return jsonify('Ok 200')
+@app.route('/ip')
+def pm():
+  id=request.args.get('id')
+  allowed_ids.remove(id)
+  data['allowed_ids'] = allowed_ids
+  with open('data.json', 'w') as file:
+   json.dump(data, file)
+app.run()
