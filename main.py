@@ -1,25 +1,14 @@
 from flask import Flask,jsonify,request
-import json
+from reqeuts import *
+url ="https://idwyvctdeopxpsomnrmy.supabase.co/rest/v1/admin?select=id&apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlkd3l2Y3RkZW9weHBzb21ucm15Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTA4NzUzNTYsImV4cCI6MjAyNjQ1MTM1Nn0.90KRZaat7FuXBIsjuYOiT1-2VmtkdAQwM6pkKt6ZwK0"
 app=Flask(__name__)
-with open('data.json', 'r') as file:
-	data = json.load(file)
-allowed_ids = data['allowed_ids']
-@app.route('/up')
+@app.route('/')
 def m():
-	id=request.args.get('edit')
-	if str(id) in allowed_ids:
-		return jsonify('Ok 400')
-	else:
-	  allowed_ids.append(id)
-	  data['allowed_ids'] = allowed_ids
-	  with open('data.json', 'w') as file:
-	  	json.dump(data, file)
-	  	return jsonify('Ok 200')
-@app.route('/ip')
-def pm():
-  id=request.args.get('dalt')
-  allowed_ids.remove(id)
-  data['allowed_ids'] = allowed_ids
-  with open('data.json', 'w') as file:
-   json.dump(data, file)
+	id=[]
+	ids=get(url).json()[0]
+	for idx in range(len(ui)):
+		p = ui[idx]['id']
+		id.append(p)
+	return id
+
 app.run()
