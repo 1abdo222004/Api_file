@@ -6,7 +6,7 @@ app=Flask(__name__)
 def m():
 	id=[]
 	ids=get(url).json()[0]
-	for idx in range(len(ui)):
+	for idx in range(len(ids)):
 		p = ui[idx]['id']
 		id.append(p)
 	return id
