@@ -7,7 +7,7 @@ def m():
 	id=[]
 	ids=get(url).json()[0]
 	for idx in range(len(ids)):
-		p = ui[idx]['id']
+		p = ids[idx]['id']
 		id.append(p)
 	return id
 
