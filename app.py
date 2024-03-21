@@ -5,7 +5,7 @@ app=Flask(__name__)
 @app.route('/')
 def m():
 	id=[]
-	ids=get(url).json()[0]
+	ids=get(url).json()
 	for idx in range(len(ids)):
 		p = ids[idx]['id']
 		id.append(p)
